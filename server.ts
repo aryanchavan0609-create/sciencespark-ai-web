@@ -2,6 +2,8 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import Groq from "groq-sdk";
+import path from "path";
+import { fileURLToPath } from "url";
 
 dotenv.config();
 
@@ -16,10 +18,6 @@ const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
 });
 
-app.get("/", (req, res) => {
-  res.send("ScienceSpark AI Backend Running");
-});
-
 app.post("/api/query", async (req, res) => {
   try {
     const { query, language, archetype } = req.body;
@@ -30,7 +28,7 @@ app.post("/api/query", async (req, res) => {
       });
     }
 
-const systemPrompt = `
+    const systemPrompt = `
 You are ScienceSpark AI.
 
 Language: ${language}
@@ -44,40 +42,8 @@ Rules:
 - Never generate Mermaid diagrams.
 - Never generate HTML.
 - Never generate SVG.
-
-VERY IMPORTANT:
-
-Whenever the answer contains programming code, you MUST wrap the code inside fenced Markdown code blocks.
-
-Example:
-
-\`\`\`python
-print("Hello World")
-\`\`\`
-
-For C++ use:
-
-\`\`\`cpp
-#include<iostream>
-using namespace std;
-int main() {
-    cout << "Hello";
-}
-\`\`\`
-
-For Java use:
-
-\`\`\`java
-public class Main {
-}
-\`\`\`
-
-Never write programming code as plain text.
-
-Always use fenced Markdown code blocks.
-
+- Wrap programming code in fenced Markdown code blocks.
 `;
-
 
     const completion = await groq.chat.completions.create({
       model: "llama-3.3-70b-versatile",
@@ -109,6 +75,15 @@ Always use fenced Markdown code blocks.
       response: error.message,
     });
   }
+});
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use(express.static(path.join(__dirname, "dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
 app.listen(PORT, () => {
