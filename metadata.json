@@ -1,0 +1,7 @@
+{
+  "name": "ScienceSpark AI",
+  "description": "Master core intelligence engine and educational science explorer with trilingual support and intent detection.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
