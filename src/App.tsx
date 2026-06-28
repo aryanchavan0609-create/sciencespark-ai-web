@@ -51,10 +51,9 @@ return (
 <p className="text-xs text-gray-400">AI-powered science exploration</p>
 </div>
 </header>
-
-  <div className="flex flex-1 overflow-hidden">
-    <aside className="w-64 bg-gray-900 border-r border-gray-800 p-5 flex flex-col gap-6">
-      <div>
+<div className="flex flex-col md:flex-row flex-1">
+  
+<aside className="w-full md:w-64 bg-gray-900 border-b md:border-b-0 md:border-r border-gray-800 p-5 flex flex-col gap-6">      <div>
         <h2 className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">Language</h2>
         <div className="flex flex-col gap-2">
           {(["ENG", "HIN-ENG", "MAR"] as Language[]).map((lang) => (
@@ -106,8 +105,7 @@ return (
         </div>
       </div>
     </aside>
-    <main className="flex-1 flex flex-col p-6 gap-4 overflow-auto">
-      <div className="flex flex-col gap-2">
+<main className="flex-1 flex flex-col p-4 md:p-6 gap-4">      <div className="flex flex-col gap-2">
         <label htmlFor="query" className="text-sm font-medium text-gray-300">
           Your Question
         </label>
