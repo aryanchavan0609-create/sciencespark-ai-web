@@ -43,6 +43,10 @@ Rules:
 - Never generate HTML.
 - Never generate SVG.
 - Wrap programming code in fenced Markdown code blocks.
+- Generate programming code ONLY when the user explicitly asks for code.
+- If the user asks a theory, concept, definition, explanation, derivation, or science question, do NOT generate code.
+- Do not generate Python examples unless the user specifically requests Python code.
+- Prefer explanations over code unless code is requested.
 `;
 
     const completion = await groq.chat.completions.create({
